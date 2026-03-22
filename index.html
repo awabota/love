@@ -9,7 +9,7 @@
 
 <div style="max-width:720px; margin:40px auto; padding:32px 24px; background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; box-sizing:border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
 
-  <h1 style="font-size:24px; line-height:1.6; text-align:center; margin:0 0 20px; font-weight:700; color:#111;">
+  <h1 style="font-size:24px; line-height:1.5; text-align:center; margin:0 0 20px; font-weight:700; color:#111;">
     今すぐ2人の関係性を<br>構造で確認する
   </h1>
 
@@ -69,25 +69,25 @@
   const urlParams = new URLSearchParams(window.location.search);
   const referrer = urlParams.get('ref') || 'direct';
   
-  // 2. 計測用GASウェブアプリURL（あなたのURL）
+  // 2. 計測用GASウェブアプリURL
   const gasUrl = "https://script.google.com/macros/s/AKfycbxeLw4JEGQseXcqub9e9yLTkmwkKF_AIoZtopKQQ9IhyFdrteP7kGMRc-P6TtKg7Ocd/exec";
-  
-  // 3. ボタンクリック時の処理
-  function handleLineClick(e) {
-    // 記録用URLを生成
+
+  // 3. 記録用の関数
+  function trackAndGo(e) {
     const trackUrl = `${gasUrl}?src=Love&ref=${referrer}`;
     
-    // バックグラウンドでGASにデータを送信（fetch）
-    // mode: 'no-cors' を指定して即座に完了させる
-    fetch(trackUrl, { mode: 'no-cors' }).catch(err => console.error(err));
+    // keepalive: true を使うことで、遷移後も通信を保証する
+    fetch(trackUrl, { 
+      mode: 'no-cors', 
+      keepalive: true 
+    });
     
-    // スプレッドシートの書き込みを待たずに即座に移動させる（クッション画面を回避）
-    // href属性に直接LINEリンクが入っているので、ブラウザが直接立ち上がります。
+    // そのままhrefのリンク先（LINE）へ移動する
   }
 
-  // 4. 各ボタンにクリックイベントを設定
-  document.getElementById('btn-top').addEventListener('click', handleLineClick);
-  document.getElementById('btn-bottom').addEventListener('click', handleLineClick);
+  // 4. 各ボタンにイベントを設定
+  document.getElementById('btn-top').addEventListener('click', trackAndGo);
+  document.getElementById('btn-bottom').addEventListener('click', trackAndGo);
 </script>
 
 </body>
