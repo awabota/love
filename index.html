@@ -19,7 +19,7 @@
   </p>
 
   <div style="text-align:center; margin:0 0 32px;">
-    <a id="btn-top" href="#" style="background:#06C755; color:#ffffff; padding:18px 32px; font-size:20px; font-weight:bold; border-radius:12px; text-decoration:none; display:inline-block; box-shadow: 0 4px 0 #05a346; transition: 0.2s;">
+    <a id="btn-top" href="https://line.me/R/ti/p/@479rnxap" style="background:#06C755; color:#ffffff; padding:18px 32px; font-size:20px; font-weight:bold; border-radius:12px; text-decoration:none; display:inline-block; box-shadow: 0 4px 0 #05a346; transition: 0.2s;">
       LINEで診断を受ける
     </a>
     <p style="font-size:13px; color:#666; margin-top:12px;">
@@ -52,7 +52,7 @@
   </div>
 
   <div style="text-align:center; margin:0 0 24px;">
-    <a id="btn-bottom" href="#" style="background:#06C755; color:#ffffff; padding:18px 32px; font-size:20px; font-weight:bold; border-radius:12px; text-decoration:none; display:inline-block; box-shadow: 0 4px 0 #05a346; transition: 0.2s;">
+    <a id="btn-bottom" href="https://line.me/R/ti/p/@479rnxap" style="background:#06C755; color:#ffffff; padding:18px 32px; font-size:20px; font-weight:bold; border-radius:12px; text-decoration:none; display:inline-block; box-shadow: 0 4px 0 #05a346; transition: 0.2s;">
       公式LINEに登録する
     </a>
   </div>
@@ -65,19 +65,29 @@
 </div>
 
 <script>
-  // 1. 紹介者(ref)を取得
+  // 1. 紹介者(ref)をURLから取得
   const urlParams = new URLSearchParams(window.location.search);
   const referrer = urlParams.get('ref') || 'direct';
   
-  // 2. 新しいGAS URL
+  // 2. 計測用GASウェブアプリURL（あなたのURL）
   const gasUrl = "https://script.google.com/macros/s/AKfycbxeLw4JEGQseXcqub9e9yLTkmwkKF_AIoZtopKQQ9IhyFdrteP7kGMRc-P6TtKg7Ocd/exec";
-
-  // 3. 最終的なリンクを生成
-  const finalLink = `${gasUrl}?src=Love&ref=${referrer}`;
   
-  // 4. ボタンにセット
-  document.getElementById('btn-top').href = finalLink;
-  document.getElementById('btn-bottom').href = finalLink;
+  // 3. ボタンクリック時の処理
+  function handleLineClick(e) {
+    // 記録用URLを生成
+    const trackUrl = `${gasUrl}?src=Love&ref=${referrer}`;
+    
+    // バックグラウンドでGASにデータを送信（fetch）
+    // mode: 'no-cors' を指定して即座に完了させる
+    fetch(trackUrl, { mode: 'no-cors' }).catch(err => console.error(err));
+    
+    // スプレッドシートの書き込みを待たずに即座に移動させる（クッション画面を回避）
+    // href属性に直接LINEリンクが入っているので、ブラウザが直接立ち上がります。
+  }
+
+  // 4. 各ボタンにクリックイベントを設定
+  document.getElementById('btn-top').addEventListener('click', handleLineClick);
+  document.getElementById('btn-bottom').addEventListener('click', handleLineClick);
 </script>
 
 </body>
