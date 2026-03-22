@@ -9,17 +9,17 @@
 
 <div style="max-width:720px; margin:40px auto; padding:32px 24px; background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; box-sizing:border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
 
-  <h1 style="font-size:26px; line-height:1.4; text-align:center; margin:0 0 20px; font-weight:700; color:#111; letter-spacing: -0.5px;">
-    今すぐ2人の関係性を<div>構造で確認する</div>
+  <h1 style="font-size:24px; line-height:1.6; text-align:center; margin:0 0 20px; font-weight:700; color:#111;">
+    今すぐ2人の関係性を<br>構造で確認する
   </h1>
 
   <p style="text-align:center; font-size:16px; line-height:1.8; margin:0 0 24px;">
     この診断は、LINEから受けていただけます。<br>
-    まずは、下のボタンからLINEに<div>ご登録ください。</div>
+    まずは、下のボタンから<br>LINEにご登録ください。
   </p>
 
   <div style="text-align:center; margin:0 0 32px;">
-    <a id="btn-top" href="#" style="background:#06C755; color:#ffffff; padding:20px 40px; font-size:20px; font-weight:bold; border-radius:12px; text-decoration:none; display:inline-block; box-shadow: 0 4px 0 #05a346; transition: 0.2s;">
+    <a id="btn-top" href="#" style="background:#06C755; color:#ffffff; padding:18px 32px; font-size:20px; font-weight:bold; border-radius:12px; text-decoration:none; display:inline-block; box-shadow: 0 4px 0 #05a346; transition: 0.2s;">
       LINEで診断を受ける
     </a>
     <p style="font-size:13px; color:#666; margin-top:12px;">
@@ -29,7 +29,7 @@
 
   <div style="padding:24px; background:#f3f4f6; border-radius:12px; margin:0 0 32px; border: 1px solid #e5e7eb;">
     <p style="font-size:18px; font-weight:700; margin:0 0 16px; text-align:center; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; color: #111;">
-      ご利用の流れ<div>（シンプルに完了します）</div>
+      ご利用の流れ<br><span style="font-size:14px; font-weight:normal;">（シンプルに完了します）</span>
     </p>
     <div style="display: table; margin: 0 auto; font-size:16px; font-weight:500; line-height: 2.2; color: #444;">
       <div style="display: table-row;"><div style="display: table-cell; padding-right: 12px; font-weight:700; color: #06C755;">①</div><div style="display: table-cell;">LINEに登録</div></div>
@@ -40,14 +40,19 @@
   </div>
 
   <div style="line-height:1.9; font-size:16px; margin-bottom: 32px; color: #444;">
-    <p style="margin:0 0 20px;">登録後、<b>「恋愛」</b>と送っていただければ、<div>こちらから診断のご案内をお送りします。</div></p>
+    <p style="margin:0 0 20px; text-align:center;">
+      登録後、<b>「恋愛」</b>と送っていただければ、<br>こちらから診断のご案内をお送りします。
+    </p>
     <div style="background:#fffaf0; border-left: 4px solid #ed8936; padding: 18px; margin-bottom: 20px; border-radius: 4px; color: #333;">
       2人の関係性を<b>構造として客観的に読み取り</b>、相性度や、どこでズレが生じるのか、どうすれば安定するのかまで明確に分かります。
     </div>
+    <p style="margin:0; text-align:center;">
+      特別な準備は必要ありません。<br>まずは、LINEにご登録ください。
+    </p>
   </div>
 
   <div style="text-align:center; margin:0 0 24px;">
-    <a id="btn-bottom" href="#" style="background:#06C755; color:#ffffff; padding:20px 40px; font-size:20px; font-weight:bold; border-radius:12px; text-decoration:none; display:inline-block; box-shadow: 0 4px 0 #05a346; transition: 0.2s;">
+    <a id="btn-bottom" href="#" style="background:#06C755; color:#ffffff; padding:18px 32px; font-size:20px; font-weight:bold; border-radius:12px; text-decoration:none; display:inline-block; box-shadow: 0 4px 0 #05a346; transition: 0.2s;">
       公式LINEに登録する
     </a>
   </div>
@@ -60,16 +65,17 @@
 </div>
 
 <script>
-  // 1. 紹介者(ref)をURLパラメータから取得
+  // 1. 紹介者(ref)を取得
   const urlParams = new URLSearchParams(window.location.search);
   const referrer = urlParams.get('ref') || 'direct';
+  
+  // 2. 新しいGAS URL
+  const gasUrl = "https://script.google.com/macros/s/AKfycbxeLw4JEGQseXcqub9e9yLTkmwkKF_AIoZtopKQQ9IhyFdrteP7kGMRc-P6TtKg7Ocd/exec";
 
-  // 2. 新しいGASウェブアプリURL
-  const gasUrl = "https://script.google.com/macros/s/AKfycbzzC_4gAvN35-tCeFEU6TX58cwPiIFI9EG4CbKqmPSSB-84yJ6bb2RuCtm6o1zGEhgt/exec";
-
-  // 3. ボタンにURLをセット（src=Loveを固定付与）
+  // 3. 最終的なリンクを生成
   const finalLink = `${gasUrl}?src=Love&ref=${referrer}`;
   
+  // 4. ボタンにセット
   document.getElementById('btn-top').href = finalLink;
   document.getElementById('btn-bottom').href = finalLink;
 </script>
