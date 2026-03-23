@@ -9,7 +9,7 @@
 
 <div style="max-width:720px; margin:40px auto; padding:32px 24px; background:#ffffff; border:1px solid #e5e7eb; border-radius:16px; box-sizing:border-box; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
 
-  <h1 style="font-size:24px; line-height:1.5; text-align:center; margin:0 0 20px; font-weight:700; color:#111;">
+  <h1 style="font-size:24px; line-height:1.6; text-align:center; margin:0 0 20px; font-weight:700; color:#111; letter-spacing: -0.5px;">
     今すぐ2人の関係性を<br>構造で確認する
   </h1>
 
@@ -69,20 +69,29 @@
   const urlParams = new URLSearchParams(window.location.search);
   const referrer = urlParams.get('ref') || 'direct';
   
-  // 2. 計測用GASウェブアプリURL
+  // 2. 計測用GASウェブアプリURL（提供されたURLを維持）
   const gasUrl = "https://script.google.com/macros/s/AKfycbxeLw4JEGQseXcqub9e9yLTkmwkKF_AIoZtopKQQ9IhyFdrteP7kGMRc-P6TtKg7Ocd/exec";
+  
+  // 3. サービス名の設定
+  const serviceName = "Love";
 
-  // 3. 記録用の関数
   function trackAndGo(e) {
-    const trackUrl = `${gasUrl}?src=Love&ref=${referrer}`;
-    
-    // keepalive: true を使うことで、遷移後も通信を保証する
+    e.preventDefault(); // デフォルトの移動を一旦キャンセル
+
+    // A. 裏側でスプレッドシートに記録（fetch）
+    const trackUrl = `${gasUrl}?src=${serviceName}&ref=${referrer}`;
     fetch(trackUrl, { 
       mode: 'no-cors', 
       keepalive: true 
     });
-    
-    // そのままhrefのリンク先（LINE）へ移動する
+
+    // B. LINEへ飛ばす際にメッセージを自動入力させる
+    // 形式: Love 紹介者名（例：Love miitaku）
+    const message = encodeURIComponent(`${serviceName} ${referrer}`);
+    const lineLink = `https://line.me/R/oaMessage/@479rnxap/?${message}`;
+
+    // 移動実行
+    window.location.href = lineLink;
   }
 
   // 4. 各ボタンにイベントを設定
